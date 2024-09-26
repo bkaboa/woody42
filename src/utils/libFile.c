@@ -42,3 +42,4 @@ void ft_memset(void *ptr, const u_int8_t data, size_t lenght)
   while (lenght-- > 0)
     *strPtr++ = data;
 }
+
