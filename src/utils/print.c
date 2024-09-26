@@ -1,6 +1,6 @@
 # include "../../hdr/woody.h"
 
-int printError(char *ctx)
+int printErrno(const char *ctx)
 {
     perror(ctx);
     return (-1);

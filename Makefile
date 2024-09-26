@@ -7,8 +7,9 @@ MK_DIR	= mkdir -p
 
 DIR_BUILD	= _build
 DIR_SRCS	= src
-SRCS		= main.c
-HEADERS		= hdr/woody.h
+SRCS		=	main.c \
+				parsing/parser.c \
+				utils/print.c
 
 OBJS	:= $(addprefix $(DIR_BUILD)/, $(SRCS:.c=.o))
 DEPS	:= $(addprefix $(DIR_BUILD)/, $(SRCS:.c=.d))
@@ -21,7 +22,8 @@ $(NAME): $(OBJS)
 $(DIR_BUILD)/%.o: $(DIR_SRCS)/%.c $(DIR_BUILD)/%.d
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(DIR_BUILD)/%.d: $(DIR_SRCS)/%.c | $(DIR_BUILD)
+$(DIR_BUILD)/%.d: $(DIR_SRCS)/%.c
+	@$(MK_DIR) $(dir $@)
 	$(CC) $(CFLAGS) -MM -MT $(basename $@).o  $< -o $@
 
 $(DIR_BUILD):
