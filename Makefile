@@ -5,7 +5,7 @@ CFLAGS	= -Wall -Wextra -Werror #-g3 -fsanitize=address
 RM		= rm -rf
 MK_DIR	= mkdir -p
 
-DIR_BUILD	= build
+DIR_BUILD	= _build
 DIR_SRCS	= src
 SRCS		= main.c
 HEADERS		= hdr/woody.h
