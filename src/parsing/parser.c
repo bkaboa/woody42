@@ -47,14 +47,28 @@ int check_elf(woody_t *woody) {
   Data:                              %s\n\
   Version:                           %d\n\
   OS/ABI:                            %d\n",
-    elf_header->e_ident[EI_MAG0],
-    elf_header->e_ident[EI_MAG1],
-    elf_header->e_ident[EI_MAG2],
-    elf_header->e_ident[EI_MAG3],
-    elf_header->e_ident[EI_CLASS] == 2 ? "ELF64" : "ELF32",
-    elf_header->e_ident[EI_DATA] == 2 ? "big endian" : "little endian",
-    elf_header->e_ident[EI_VERSION],
-    elf_header->e_ident[EI_OSABI]
-  );
-  return 0;
+        elf_header->e_ident[EI_MAG0],
+        elf_header->e_ident[EI_MAG1],
+        elf_header->e_ident[EI_MAG2],
+        elf_header->e_ident[EI_MAG3],
+        elf_header->e_ident[EI_CLASS] == ARCH_64 ? "ELF64" : "ELF32",
+        elf_header->e_ident[EI_DATA] == W_BIG_ENDIAN ? "big endian" : "little endian",
+        elf_header->e_ident[EI_VERSION],
+        elf_header->e_ident[EI_OSABI]
+    );
+    if (ft_strncmp((char *)elf_header, ELFMAG, 4)) {
+        dprintf(2, "Invalid binary (not ELF)\n");
+        return -1;
+    }
+    if (elf_header->e_ident[EI_CLASS] != ARCH_64 && elf_header->e_ident[EI_CLASS] != ARCH_32) {
+        dprintf(2, "Invalid binary (arch diff 32/64)\n");
+        return -1;
+    }
+    woody->arch = elf_header->e_ident[EI_CLASS];
+    if (elf_header->e_ident[EI_DATA] != W_BIG_ENDIAN && elf_header->e_ident[EI_DATA] != W_LITTLE_ENDIAN) {
+        dprintf(2, "Invalid binary (endian not recognize)\n");
+        return -1;
+    }
+    woody->endian = elf_header->e_ident[EI_CLASS];
+    return 0;
 }

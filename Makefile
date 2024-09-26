@@ -9,7 +9,8 @@ DIR_BUILD	= _build
 DIR_SRCS	= src
 SRCS		=	main.c \
 				parsing/parser.c \
-				utils/print.c
+				utils/print.c \
+				utils/libFile.c
 
 OBJS	:= $(addprefix $(DIR_BUILD)/, $(SRCS:.c=.o))
 DEPS	:= $(addprefix $(DIR_BUILD)/, $(SRCS:.c=.d))
