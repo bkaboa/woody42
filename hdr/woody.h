@@ -22,11 +22,15 @@ enum x86{
 
 typedef int x86;
 
+struct fileProps {
+    u_int8_t    endian;
+    u_int8_t    arch;
+};
+
 typedef struct woody {
     void        *map; // map of the file
     size_t      file_size; // size of the file
-    u_int8_t    endian;
-    u_int8_t    arch;
+    struct fileProps fileProps;
     x86 bit;
 } woody_t;
 

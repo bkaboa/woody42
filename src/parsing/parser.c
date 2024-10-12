@@ -64,11 +64,11 @@ int check_elf(woody_t *woody) {
         dprintf(2, "Invalid binary (arch diff 32/64)\n");
         return -1;
     }
-    woody->arch = elf_header->e_ident[EI_CLASS];
+    woody->fileProps.arch = elf_header->e_ident[EI_CLASS];
     if (elf_header->e_ident[EI_DATA] != W_BIG_ENDIAN && elf_header->e_ident[EI_DATA] != W_LITTLE_ENDIAN) {
         dprintf(2, "Invalid binary (endian not recognize)\n");
         return -1;
     }
-    woody->endian = elf_header->e_ident[EI_CLASS];
+    woody->fileProps.endian = elf_header->e_ident[EI_CLASS];
     return 0;
 }
